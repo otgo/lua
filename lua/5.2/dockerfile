@@ -1,0 +1,57 @@
+FROM ubuntu:xenial
+LABEL com.telegram-bot.vendor="otgo"
+LABEL com.telegram-bot.email="otgo@outlook.es"
+ARG DEBIAN_FRONTEND=noninteractive
+WORKDIR /home
+RUN mkdir telegram-bot
+RUN apt-get update
+RUN apt-get install -y --assume-yes \
+	apt-utils
+RUN apt-get install -y -qq \
+	dialog
+RUN apt-get upgrade -qq -y
+RUN apt-get install -y -qq \
+	apt-transport-https \
+	ca-certificates \
+	sudo \
+	software-properties-common \
+	lua5.2 \
+	liblua5.2-dev \
+	imagemagick \
+	openssl \
+	libcurl3 \
+	libcurl3-openssl-dev \
+	festival \
+	libconfig-dev \
+	libssl-dev \
+	nano \
+	net-tools \
+	sysfsutils \
+	libevent-dev \
+	make \
+	unzip \
+	git \
+	g++ \
+	libjansson-dev \
+	libpython-dev \
+	expat \
+	libexpat1-dev \
+	subversion \
+	curl \
+	wget
+WORKDIR /tmp
+RUN wget http://luarocks.org/releases/luarocks-2.2.2.tar.gz 2>/dev/stdout
+RUN tar zxpf luarocks-2.2.2.tar.gz
+WORKDIR luarocks-2.2.2
+RUN ./configure ; make bootstrap
+RUN luarocks install luasocket
+RUN luarocks install luasec 2>/dev/stdout
+RUN luarocks install Lua-cURL
+RUN luarocks install std._debug
+RUN luarocks install std.normalize
+RUN luarocks install luaposix
+RUN luarocks install dkjson
+WORKDIR /root
+COPY wfrs.c ./
+RUN gcc wfrs.c -o /usr/bin/wfrs -lcurl
+RUN rm wfrs.c

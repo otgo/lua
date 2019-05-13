@@ -64,11 +64,9 @@ int main(int argc, char **argv) {
                     strcpy(tmp_val, &line[position]+1);
                     tmp_var[position-1] = '\0';
                     tmp_val[strlen(tmp_val)-1] = '\0';
-                    printf("%s === %s %li\n", tmp_var, tmp_val, strlen(tmp_val));
                     setenv(tmp_var, tmp_val, 1);
                 }
             }
-            printf("BOT_CHANNEL=%s\n", getenv("BOT_CHANNEL"));
             fclose(fp);
             free(line); free(tmp_var); free(tmp_val);
         }

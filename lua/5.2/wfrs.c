@@ -8,6 +8,7 @@ size_t null_data(void *buffer, size_t size, size_t nmemb, void *userp);
 char* concat(const char *string_1, const char *string_2);
 int file_exists(const char * filename);
 int dir_exists(char *dirname);
+int startsWith(const char *pre, const char *str);
 int main(int argc, char **argv) {
     CURL *curl;
     CURLcode res;
@@ -39,12 +40,37 @@ int main(int argc, char **argv) {
                 free(__ffd__);
                 return 1;
             }
-            char *__source__ = concat("bash -c 'source ", argv[2]);
-            __source__ = concat(__source__, "'");
-            system("set -o allexport");
-            system(__source__);
-            system("set +o allexport");
-            free(__source__);
+            FILE * fp;
+            size_t len;
+            ssize_t read;
+            char *line, *tmp_val, *tmp_var, *var_find;
+            int position, len_line;
+            tmp_val = malloc(sizeof(char));
+            tmp_var = malloc(sizeof(char));
+            line = malloc(sizeof(char));
+            len = 0;
+            fp = fopen(argv[2], "r");
+            while ((read = getline(&line, &len, fp)) != -1 && strlen(line) > 1) {
+                strtok(line, "\n");
+                if (startsWith("#", line) == 0) {
+                    len_line = strlen(line);
+                    var_find = strchr(line, '"');
+                    if (var_find == NULL) var_find = strchr(line, '\'');
+                    if (var_find == NULL) continue;
+                    position = (var_find-line);
+                    tmp_var = (char *)realloc(tmp_var, position);
+                    strncpy(tmp_var, line, position-1);
+                    tmp_val = (char *)realloc(tmp_val, len_line-position);
+                    strcpy(tmp_val, &line[position]+1);
+                    tmp_var[position-1] = '\0';
+                    tmp_val[strlen(tmp_val)-1] = '\0';
+                    printf("%s === %s %li\n", tmp_var, tmp_val, strlen(tmp_val));
+                    setenv(tmp_var, tmp_val, 1);
+                }
+            }
+            printf("BOT_CHANNEL=%s\n", getenv("BOT_CHANNEL"));
+            fclose(fp);
+            free(line); free(tmp_var); free(tmp_val);
         }
     }
     char *redis_host = getenv("REDIS_HOST");
@@ -107,4 +133,8 @@ int dir_exists(char *dirname) {
         return 1;
     }
     return 0;
+}
+int startsWith(const char *pre, const char *str) {
+    size_t lenpre = strlen(pre), lenstr = strlen(str);
+    return lenstr < lenpre ? 0 : strncmp(pre, str, lenpre) == 0;
 }

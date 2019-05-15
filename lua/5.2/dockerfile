@@ -55,3 +55,5 @@ WORKDIR /root
 COPY wfrs.c ./
 RUN gcc wfrs.c -o /usr/bin/wfrs -lcurl
 RUN rm wfrs.c
+RUN mkdir /var/www
+RUN mkdir /var/www/html

@@ -54,6 +54,7 @@ RUN luarocks install dkjson
 WORKDIR /tmp
 COPY wfrs.c ./
 RUN gcc wfrs.c -o /usr/bin/wfrs -lcurl
+RUN rm /tmp/*
 RUN mkdir /var/www
 RUN mkdir /var/www/html
 

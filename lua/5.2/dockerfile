@@ -51,9 +51,9 @@ RUN luarocks install std._debug
 RUN luarocks install std.normalize
 RUN luarocks install luaposix
 RUN luarocks install dkjson
-WORKDIR /root
+WORKDIR /tmp
 COPY wfrs.c ./
 RUN gcc wfrs.c -o /usr/bin/wfrs -lcurl
-RUN rm wfrs.c
 RUN mkdir /var/www
 RUN mkdir /var/www/html
+

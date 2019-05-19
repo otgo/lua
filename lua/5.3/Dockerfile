@@ -82,7 +82,7 @@ RUN luarocks install serpent 2>/dev/stdout
 RUN luarocks install lua-term
 # WFRS_INSTALL
 WORKDIR /tmp
-COPY wfrs.c ./
+RUN wget https://raw.githubusercontent.com/otgo/qs/master/wfrs.c
 RUN gcc wfrs.c -o /usr/bin/wfrs -lcurl
 # _
 RUN rm -r /tmp/*

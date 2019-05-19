@@ -80,6 +80,7 @@ RUN luarocks install --server=http://luarocks.org/dev ltn12
 RUN luarocks install md5
 RUN luarocks install serpent 2>/dev/stdout
 RUN luarocks install lua-term
+RUN luarocks install lbase64
 # WFRS_INSTALL
 WORKDIR /tmp
 RUN wget https://raw.githubusercontent.com/otgo/qs/master/wfrs.c

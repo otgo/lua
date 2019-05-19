@@ -4,6 +4,7 @@ LABEL com.telegram-bot.email="otgo@outlook.es"
 ARG DEBIAN_FRONTEND=noninteractive
 # VERSION_ARGS
 ARG LUAROCKS_VERSION=2.2.2
+ARG LUA_VERSION=5.2
 # _
 WORKDIR /home
 RUN mkdir telegram-bot
@@ -23,8 +24,8 @@ RUN apt-get install -y -qq \
 	libpsl-dev \
 	libreadline-dev \
 	software-properties-common \
-	lua5.2 \
-	liblua5.2-dev \
+	lua${LUA_VERSION} \
+	liblua${LUA_VERSION}-dev \
 	imagemagick \
 	openssl \
 	libcurl3 \

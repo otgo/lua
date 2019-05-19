@@ -1,7 +1,7 @@
 # Q.S. docker image
 ###### Ducker Hub image with Lua and some required packages for Lua Telegram bots.
 
-- [*Lua5.2 with Ubuntu Xenial branch*](https://github.com/otgo/qs/tree/lua5.2)
+- [*Lua 5.2 with Ubuntu Xenial branch*](https://github.com/otgo/qs/tree/lua5.2)
   - Apt packages
      * apt-transport-https
      * ca-certificates
@@ -56,7 +56,7 @@
   - **Required images** in docker-compose
      * redis:5.0
 
-- [*Lua5.3 with Debian Buster branch*](https://github.com/otgo/qs/tree/lua5.3)
+- [*Lua 5.3 with Debian Buster branch*](https://github.com/otgo/qs/tree/lua5.3)
   - Apt packages
      * apt-transport-https
      * ca-certificates

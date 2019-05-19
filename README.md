@@ -1,5 +1,6 @@
 # Q.S. docker image
 ###### Ducker Hub image with Lua and some required packages for Lua Telegram bots.
+[This is the latest branch](https://github.com/otgo/qs/tree/latest)
 
 - [*Lua 5.2 with Ubuntu Xenial branch*](https://github.com/otgo/qs/tree/lua5.2)
   - Apt packages

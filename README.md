@@ -108,3 +108,61 @@
      * lua-term
   - **Required images** in docker-compose
      * redis:5.0
+
+docker-compose.yml examples:
+```yml
+version '3'
+services:
+  app:
+    image: otgo/qs
+    networks:
+      - redis-net
+    depends_on:
+      - redis
+    command: wfrs my_bot.lua /directory/my_config.env
+  redis:
+    image: redis:5.0
+    command: redis-server
+    networks:
+      - redis-net
+networks:
+  - redis-net
+```
+
+```yml
+version '3'
+services:
+  app:
+    image: otgo/qs:lua5.2
+    networks:
+      - redis-net
+    depends_on:
+      - redis
+    command: wfrs my_bot.lua /directory/my_config.env
+  redis:
+    image: redis:5.0
+    command: redis-server
+    networks:
+      - redis-net
+networks:
+  - redis-net
+```
+
+```yml
+version '3'
+services:
+  app:
+    image: otgo/qs:lua5.3
+    networks:
+      - redis-net
+    depends_on:
+      - redis
+    command: wfrs my_bot.lua /directory/my_config.env
+  redis:
+    image: redis:5.0
+    command: redis-server
+    networks:
+      - redis-net
+networks:
+  - redis-net
+```

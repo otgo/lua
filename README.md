@@ -1,7 +1,7 @@
 # Q.S. docker image
 ###### Ducker Hub image with Lua 5.3 and some required packages for Lua Telegram bots.
 
-*Lua5.3 with Debian Buster*
+*Lua 5.3 with Debian Buster*
   - Apt packages
      * apt-transport-https
      * ca-certificates

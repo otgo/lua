@@ -1,9 +1,11 @@
-FROM ubuntu:xenial
+FROM debian:buster
 LABEL com.telegram-bot.vendor="otgo"
 LABEL com.telegram-bot.email="otgo@outlook.es"
 ARG DEBIAN_FRONTEND=noninteractive
 # VERSION_ARGS
-ARG LUAROCKS_VERSION=2.2.2
+ARG LUAROCKS_VERSION=3.1.2
+ARG LUA_VERSION=5.3.5
+ARG CURL_VERSION=7.64.1
 # _
 WORKDIR /home
 RUN mkdir telegram-bot
@@ -23,12 +25,8 @@ RUN apt-get install -y -qq \
 	libpsl-dev \
 	libreadline-dev \
 	software-properties-common \
-	lua5.2 \
-	liblua5.2-dev \
 	imagemagick \
 	openssl \
-	libcurl3 \
-	libcurl3-openssl-dev \
 	festival \
 	libconfig-dev \
 	libssl-dev \
@@ -45,8 +43,20 @@ RUN apt-get install -y -qq \
 	expat \
 	libexpat1-dev \
 	subversion \
-	curl \
 	wget
+# CURL_INSTALL
+WORKDIR /tmp
+RUN wget -qO- https://curl.haxx.se/download/curl-${CURL_VERSION}.tar.gz | tar --transform 's/^dbt2-0.37.50.3/dbt2/' -xvz
+WORKDIR curl-${CURL_VERSION}
+RUN ./configure --with-ssl --with-ssh --with-rtmps --prefix=/usr
+RUN make
+RUN make install
+# LUA_INSTALL
+WORKDIR /tmp
+RUN wget -qO- http://www.lua.org/ftp/lua-${LUA_VERSION}.tar.gz | tar --transform 's/^dbt2-0.37.50.3/dbt2/' -xvz
+WORKDIR lua-${LUA_VERSION}
+RUN make linux test
+RUN make install
 # LUAROCKS_INSTALL
 WORKDIR /tmp
 RUN wget -qO- http://luarocks.org/releases/luarocks-${LUAROCKS_VERSION}.tar.gz | tar --transform 's/^dbt2-0.37.50.3/dbt2/' -xvz

@@ -43,7 +43,8 @@ RUN apt-get install -y -qq \
 	expat \
 	libexpat1-dev \
 	subversion \
-	wget
+	wget \
+	m4
 # CURL_INSTALL
 WORKDIR /tmp
 RUN wget -qO- https://curl.haxx.se/download/curl-${CURL_VERSION}.tar.gz | tar --transform 's/^dbt2-0.37.50.3/dbt2/' -xvz

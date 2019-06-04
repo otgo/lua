@@ -82,6 +82,8 @@ RUN luarocks install serpent 2>/dev/stdout
 RUN luarocks install lua-term
 RUN luarocks install lbase64
 RUN luarocks install luafilesystem
+RUN luarocks install cqueues
+RUN luarocks install telegram
 # WFRS_INSTALL
 WORKDIR /tmp
 RUN wget https://raw.githubusercontent.com/otgo/qs/master/wfrs.c

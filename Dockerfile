@@ -9,6 +9,8 @@ ARG CURL_VERSION=7.64.1
 # _
 WORKDIR /home
 RUN mkdir telegram-bot
+RUN apt-get clean
+RUN rm -rf /var/lib/apt/lists/*
 RUN apt-get update
 RUN apt-get upgrade -qq -y
 RUN apt-get install -y --assume-yes \

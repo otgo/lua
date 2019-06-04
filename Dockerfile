@@ -47,7 +47,8 @@ RUN apt-get install -y -qq \
 	libexpat1-dev \
 	subversion \
 	curl \
-	wget
+	wget \
+	m4
 # LUAROCKS_INSTALL
 WORKDIR /tmp
 RUN wget -qO- http://luarocks.org/releases/luarocks-${LUAROCKS_VERSION}.tar.gz | tar --transform 's/^dbt2-0.37.50.3/dbt2/' -xvz

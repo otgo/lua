@@ -50,7 +50,9 @@ RUN apt-get install -y -qq \
 	subversion \
 	curl \
 	wget \
-	m4
+	m4 \
+	libgd-dev \
+	libpng-dev
 # LUAROCKS_INSTALL
 WORKDIR /tmp
 RUN wget -qO- http://luarocks.org/releases/luarocks-${LUAROCKS_VERSION}.tar.gz | tar --transform 's/^dbt2-0.37.50.3/dbt2/' -xvz
@@ -78,6 +80,7 @@ RUN luarocks install lbase64
 RUN luarocks install luafilesystem
 RUN luarocks install cqueues
 RUN luarocks install telegram
+RUN luarocks install lua-captcha
 # WFRS_INSTALL
 WORKDIR /tmp
 RUN wget https://raw.githubusercontent.com/otgo/qs/master/wfrs.c

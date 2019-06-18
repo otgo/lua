@@ -1,10 +1,9 @@
-FROM debian:buster
+FROM debian:stable
 LABEL com.telegram-bot.vendor="otgo"
 LABEL com.telegram-bot.email="otgo@outlook.es"
 ARG DEBIAN_FRONTEND=noninteractive
 # VERSION_ARGS
 ARG LUAROCKS_VERSION=3.1.2
-ARG LUA_VERSION=5.3.5
 ARG CURL_VERSION=7.64.1
 # _
 WORKDIR /home
@@ -48,19 +47,15 @@ RUN apt-get install -y -qq \
 	wget \
 	m4 \
 	libgd-dev \
-	libpng-dev
+	libpng-dev \
+	libgif-dev \
+	libjpeg-dev
 # CURL_INSTALL
 WORKDIR /tmp
 RUN wget -qO- https://curl.haxx.se/download/curl-${CURL_VERSION}.tar.gz | tar --transform 's/^dbt2-0.37.50.3/dbt2/' -xvz
 WORKDIR curl-${CURL_VERSION}
 RUN ./configure --with-ssl --with-ssh --with-rtmps --prefix=/usr
 RUN make
-RUN make install
-# LUA_INSTALL
-WORKDIR /tmp
-RUN wget -qO- http://www.lua.org/ftp/lua-${LUA_VERSION}.tar.gz | tar --transform 's/^dbt2-0.37.50.3/dbt2/' -xvz
-WORKDIR lua-${LUA_VERSION}
-RUN make linux test
 RUN make install
 # LUAROCKS_INSTALL
 WORKDIR /tmp
@@ -98,4 +93,3 @@ RUN gcc wfrs.c -o /usr/bin/wfrs -lcurl
 RUN rm -r /tmp/*
 RUN mkdir /var/www
 RUN mkdir /var/www/html
-WORKDIR /root

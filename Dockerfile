@@ -1,4 +1,5 @@
 FROM otgo/qs:base
+#VARIABLES
 ENV LUA_VERSION=5.2.4
 ENV LUAROCKS_VERSION=3.1.2
 #LUA_INSTALL
@@ -7,14 +8,14 @@ RUN wget -qO- http://www.lua.org/ftp/lua-${LUA_VERSION}.tar.gz | tar --transform
 WORKDIR lua-${LUA_VERSION}
 RUN make linux test
 RUN make install
-# LUAROCKS_INSTALL
+#LUAROCKS_INSTALL
 WORKDIR /tmp
 RUN wget -qO- http://luarocks.org/releases/luarocks-${LUAROCKS_VERSION}.tar.gz | tar --transform 's/^dbt2-0.37.50.3/dbt2/' -xvz
 WORKDIR luarocks-${LUAROCKS_VERSION}
 RUN ./configure
 RUN make build
 RUN make install
-# LUAROCKS_LIBRARY
+#LUAROCKS_LIBRARY
 RUN luarocks install luasocket
 RUN luarocks install luasec
 RUN luarocks install Lua-cURL CURL_DIR=/usr
@@ -36,5 +37,5 @@ RUN luarocks install telegram
 RUN luarocks install lua-captcha
 #CLEAN_ALL
 RUN rm -r /tmp/*
-#CDROOT
+#CD_ROOT
 WORKDIR /root

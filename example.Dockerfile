@@ -1,4 +1,4 @@
-FROM otgo/qs:lua5.3
+FROM otgo/lua:5.3
 #LUAROCKS_LIBRARY
 RUN luarocks install luasocket
 RUN luarocks install luasec

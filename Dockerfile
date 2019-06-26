@@ -1,4 +1,4 @@
-FROM debian:stable
+FROM debian:latest
 LABEL com.telegram-bot.vendor="otgo"
 LABEL com.telegram-bot.email="otgo@outlook.es"
 ARG DEBIAN_FRONTEND=noninteractive

@@ -50,7 +50,8 @@ RUN apt-get install -y -qq \
 	libgd-dev \
 	libpng-dev \
 	libgif-dev \
-	libjpeg-dev
+	libjpeg-dev \
+	libncurses-dev
 #CURL_INSTALL
 WORKDIR /tmp
 RUN wget -qO- https://curl.haxx.se/download/curl-${CURL_VERSION}.tar.gz | tar --transform 's/^dbt2-0.37.50.3/dbt2/' -xvz

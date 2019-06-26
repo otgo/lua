@@ -1,4 +1,4 @@
-FROM otgo/qs:base
+FROM otgo/debian
 #VARIABLES
 ENV LUA_VERSION=5.2.4
 ENV LUAROCKS_VERSION=3.1.2
